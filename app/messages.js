@@ -1,10 +1,20 @@
 const express = require('express');
 const router = express.Router();
-// const fileDB = require('../fileDB');
+const path = "../messages";
 
 router.get('/', (req, res) => {
-   const products = res.send('List of messages will be here');
+   res.send('List of products will be here');
 });
 
+router.get('/:id', (req, res) => {
+   res.send('A single product by id will be here');
+});
 
-module.export = router;
+router.post('/', (req, res) => {
+   res.send('Will create new product here');
+});
+
+module.exports = router;
+
+
+

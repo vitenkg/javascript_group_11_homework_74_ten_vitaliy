@@ -1,13 +1,36 @@
 const fs = require('fs');
 
 const dateTime = new Date();
-const fileName = `../messages/${dateTime.toISOString()}.txt`;
+const path = './messages';
+let data = [];
 
-const message = {
-   "message": "Hello, world",
-   "datetime": dateTime.toISOString(),
+module.exports = {
+   init() {
+      try {
+         fs.readdirSync(path, (err, files) => {
+            files.forEach(file => {
+               console.log('init: ' + path + '/' + file);
+               data.push(file);
+            });
+         })
+      } catch (e) {
+         data = [];
+      }
+   },
+   getFiles() {
+      console.log('get files', data);
+      return data;
+   },
+   addFile() {
+      const fileName = `./messages/${dateTime.toISOString()}.txt`;
+      const message = {
+         "message": "Hello, world",
+         "datetime": dateTime.toISOString(),
+      };
+      fs.writeFileSync(fileName, JSON.stringify(message));
+      console.log('file was saved');
+      console.log('Add file', message);
+      return message;
+   }
 };
 
-fs.writeFileSync(fileName, message.message);
-
-console.log('file was saved');
